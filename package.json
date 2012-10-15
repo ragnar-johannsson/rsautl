@@ -1,0 +1,14 @@
+{
+    "name": "rsautl",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "temp": "*"
+    },
+    "devDependencies": {
+        "nodeunit": "*"
+    },
+    "scripts": {
+        "test": "node_modules/.bin/nodeunit test"
+    }
+}
