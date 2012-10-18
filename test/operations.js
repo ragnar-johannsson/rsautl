@@ -37,7 +37,7 @@ exports.encryptAndDecrypt = function (test) {
         });
     });
 
-    setTimeout(function () { test.done(); } , 500); // Allow for IO  and computations to complete
+    setTimeout(function () { test.done(); }, 500); // Allow for IO and computations to complete
 }
 
 exports.signAndVerify = function (test) {
@@ -52,5 +52,5 @@ exports.signAndVerify = function (test) {
         });
     });
 
-    setTimeout(function () { test.done(); } , 500); // Allow for IO  and computations to complete
+    setTimeout(function () { test.done(); }, 500); // Allow for IO and computations to complete
 }
