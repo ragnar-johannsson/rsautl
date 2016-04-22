@@ -54,3 +54,41 @@ exports.signAndVerify = function (test) {
 
     setTimeout(function () { test.done(); }, 500); // Allow for IO and computations to complete
 }
+
+exports.formatKey = function (test) {
+    var testStr = 'Unformatted keys';
+    var unformattedPublicKey = publicKey.replace(/\n/gm, '');
+    var unformattedPrivateKey = privateKey.replace(/\n/gm, '');
+
+    test.expect(5);
+    test.ok(unformattedPublicKey !== publicKey, 'Unformatted public key matches formatted original');
+    test.ok(unformattedPrivateKey !== privateKey, 'Unformatted private key matches formatted original');
+    rsautl.encrypt(testStr, unformattedPublicKey, function (err, encrypted) {
+        test.ok(err === null, err);
+        rsautl.decrypt(encrypted, unformattedPrivateKey, function (err, decrypted) {
+            test.ok(err === null, err);
+            test.ok(decrypted === testStr, 'Encrypted/decrypted mismatch');
+        });
+    });
+
+    setTimeout(function () { test.done(); }, 500); // Allow for IO and computations to complete
+}
+
+exports.formatKeyWithWindowsLineEndings = function (test) {
+    var testStr = 'Keys with Windows line endings';
+    var windowsPublicKey = publicKey.replace(/\n/gm, '\r\n');
+    var windowsPrivateKey = privateKey.replace(/\n/gm, '\r\n');
+
+    test.expect(5);
+    test.ok(windowsPublicKey !== publicKey, 'Public key with Windows line endings matches original');
+    test.ok(windowsPrivateKey !== privateKey, 'Private key with Windows line endings matches original');
+    rsautl.encrypt(testStr, windowsPublicKey, function (err, encrypted) {
+        test.ok(err === null, err);
+        rsautl.decrypt(encrypted, windowsPrivateKey, function (err, decrypted) {
+            test.ok(err === null, err);
+            test.ok(decrypted === testStr, 'Encrypted/decrypted mismatch');
+        });
+    });
+
+    setTimeout(function () { test.done(); }, 500); // Allow for IO and computations to complete
+}
